@@ -1,0 +1,16 @@
+{
+  "extends": ["@madiodio/eslint-config-personal-flow", "plugin:mdx/recommended"],
+  "globals": { "Email": true },
+  "rules": {
+    "jsx-a11y/label-has-associated-control": 0,
+    "jsx-a11y/label-has-for": [
+      2,
+      {
+        "required": {
+          "every": ["id"]
+        }
+      }
+    ],
+    "react/destructuring-assignment": 0
+  }
+}

@@ -1,0 +1,53 @@
+---
+route: /
+order: 1
+name: Accueil
+title: Documentation de Paps API
+---
+
+import Text from './components/Text'
+import ModalToggle from './components/Modal/Toggle';
+import Modal from './components/Modal'
+import GetApiKeyForm from './components/Form'
+import Button from './components/Button'
+
+# 🙌🏼 Hello, world!
+
+## Introduction
+
+> Bienvenue dans la documentation de Paps API. Cette documentation vous guidera 
+> dans toutes les étapes pour utiliser l'API de Paps dans vos applications. Paps API
+> vous permet de créer des courses et de les suivre sans utiliser les interfaces de Paps
+> directement à travers votre application.
+
+## Commencez à utiliser Paps API
+
+Vous pouvez commencez à utiliser l'API en lisant la documentation mais avant cela vous devez souscrire pour obtenir une clé 🔑 pour que vos requêtes soient authentifiées et garantissent qu'elle viennent bien de votre application.
+
+<ModalToggle id="getApiKey">
+  {(openModal) => 
+    <Button
+      type="button"
+      variant="contained"
+      style={{ marginTop: "1rem" }}
+      onClick={openModal}
+    >
+      Obtenir une clé
+    </Button>
+  }
+</ModalToggle>
+
+<Modal id="getApiKey">
+  {(closeModal) => (
+    <GetApiKeyForm />
+  )}
+</Modal>
+
+## Endpoint
+
+Le EndPoint (addresse url sur laquelle vous devez pointer votre requête) est le suivant:
+
+```
+https://api.paps.sn/api/v1/<method>?apiKey=<apiKey>
+```
+

@@ -1,0 +1,46 @@
+{
+  "name": "paps-docz-api",
+  "version": "1.0.0",
+  "description": "Documentation de l'API de Paps",
+  "main": "mdx/index.mdx",
+  "scripts": {
+    "start": "docz dev",
+    "docz:dev": "docz dev",
+    "docz:build": "docz build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/paps-app/paps-docz-api.git"
+  },
+  "author": "Madiodio Gaye <papigaye1@gmail.com> (http://github.com/madiodio)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/paps-app/paps-docz-api/issues"
+  },
+  "homepage": "https://gitlab.com/paps-app/paps-docz-api#readme",
+  "devDependencies": {
+    "@firebase/app-types": "^0.3.2",
+    "@madiodio/eslint-config-personal-flow": "^1.2.0",
+    "babel-eslint": "^10.0.1",
+    "babel-plugin-emotion": "^9.2.11",
+    "docz": "^0.12.5",
+    "eslint": "^5.6.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-plugin-flowtype": "^2.50.3",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-mdx": "^1.0.1",
+    "eslint-plugin-react": "^7.11.1",
+    "install": "^0.12.2",
+    "react-svg-loader": "^2.1.0"
+  },
+  "dependencies": {
+    "buble": "0.19.4",
+    "crypto-random-string": "^1.0.0",
+    "emotion": "^9.2.12",
+    "firebase": "^5.5.5",
+    "random-int": "^1.0.0",
+    "react-emotion": "^9.2.12"
+  }
+}
