@@ -1,5 +1,5 @@
 {
-  "name": "paps-docz-api",
+  "name": "paps-api",
   "version": "1.0.0",
   "description": "Documentation de l'API de Paps",
   "main": "mdx/index.mdx",
