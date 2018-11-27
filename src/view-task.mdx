@@ -1,0 +1,38 @@
+---
+name: Voir une tâche
+order: 3
+title: Voir une tâche
+---
+
+## Obtenir les infos sur une tache donnée
+
+Après avoir créé une tâche via l'API, vous pouvez vérifier qu'elle a bien été créée en utilisant la méthode `GET /api/v1/viewTask?id=<task-id>`.
+
+| Paramètre | Type   | Description                                      |
+| --------- | ------ | ------------------------------------------------ |
+| `id`      | Number | L'unique identifiant de la tâche qui a été créée |
+
+Cette requête est utilisée pour obtenir les détails de la tâche. Losrque tout se passe bien, vous aurez une réponse de ce type:
+
+```json
+{
+	"message": "Successful",
+	"status": 200,
+	"data": {
+		"fleet_id": 12201,
+		"fleet_name": "Bassène",
+		"fleet_latitude": 14.71723,
+		"fleet_longitude": -17.16229,
+		....
+	}
+}
+```
+
+<iframe
+  src="//api.apiembed.com/?source=https://raw.githubusercontent.com/paps-app/request-api-exemple/master/GetTask.json&targets=shell:curl,node:unirest,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,java:okhttp,node:native,javascript:jquery,php:http1,csharp:restsharp"
+  frameborder="0"
+  scrolling="no"
+  width="100%"
+  height="300px"
+  seamless
+/>

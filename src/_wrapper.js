@@ -15,6 +15,10 @@ injectGlobal`
     justify-content: center;
     align-items: center;
   }
+
+  [align="center"] {
+    text-align: center !important;
+  }
 `;
 
 const Wrapper = ({ children }) => <ModalProvider>{children}</ModalProvider>;

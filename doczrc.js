@@ -1,6 +1,6 @@
 module.exports = {
   wrapper: "src/_wrapper",
-  src: "./src",
+  src: "src",
   indexHtml: "src/index.html",
   themeConfig: {
     styles: {
@@ -9,6 +9,11 @@ module.exports = {
           "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif"
       }
     }
+  },
+  // hashRouter: true,
+  public: "/public",
+  htmlContext: {
+    favicon: "/public/favicon.png"
   },
   modifyBundlerConfig: config => {
     const idx = config.module.rules.findIndex(

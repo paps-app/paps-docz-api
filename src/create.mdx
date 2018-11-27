@@ -1,92 +1,117 @@
 ---
+order: 4
 name: Créer une tâche
 title: Créer une tache avec Paps API
 ---
 
 # Créer une tache avec Paps API
 
-Il existe différents types de tâches peuvent être créées à à travers l'API en fonction du flux de travail que vous avez sélectionné dans votre compte, par exemple - pick & tâche de livraison, la tâche de rendez-vous, etc.
+Il existe différents types de tâches peuvent être créées à travers l'API en fonction de votre flux de travail. Vous pouvez effectuer 3 types de requêtes pour créer une tâche:
 
-> Toute création de tache doit être faite avec un argument `apiKey` que vous pouvez 
+- Création de tache de ramassage (`createPickup`)
+- Création de tache de livraison (`createDelivery`)
+- Création de tâches multiples (`createMultipleTasks`)
+
+> Toute création de tache doit être faite avec un argument de type query `apiKey` que vous pouvez
 > obtenir [ici](/#commencez-à-utiliser-paps-api) sur la page d'acceil. Exemple:
 
-`GET https://api.paps.sn/api/v1/task?api_key=59a242vv8830z22zee983930129892b&getId=2231233`
+`POST https://api.paps.sn/api/v1/<method>?apiKey=59a242vv8830z22zee983930129892b&getId=2231233`
 
 ## Créer une tâche de ramassage
 
-Cette API est utilisée pour créer une tâche de pick - up.L'url de base qu'on va utilisé est : `POST /api/v1/createPickup`.
+- Méthode: **`POST /api/v1/createPickup`**
 
-```json
-{
-	"apiKey": "5462658cf0110b1e5f572a6b1410214519e7c3f222de7d3e5a1a",
-	"jobPickupAddress": "Fann Hock, Dakar, Sénégal",
-	"timezone": "0",
-	"jobPickupDatetime": "2018-10-23 00:00:00"
-}
-```
+Cette méthode est utilisée pour créer une tâche de ramassage. Une tâche de ramassage désigne une course où le colis doit être pris. Le tableau ci-dessous récapitule les paramètres obligatoires à accompagner avec la requête de création de tâches de ramassage:
 
-On vient de créer une tâche de pickup.Et la réponse de confirmation que tout s'est bien passé est:
+> **Important**: A moins qu’il ait été précisé optionnel
+> dans la requête, tous les paramètres mentionnés ci-dessous sont
+> obligatoires dans leur requête respective
 
-```json
-{
-  "payload": {
-		"message": "The task has been created.",
-		"status": 200,
-		"data": {
-      "job_id": 22694356,
-      "job_hash": "25fcca51819686e214e910c9836764d1",
-      "job_pickup_address": "Fann Hock, Dakar, Sénégal",
-      "job_token": "2269435615403221690882229",
-      "tracking_link": "http://tukn.tk/o1ZYf",
-      "pickupAddressNotFound": false,
-      "deliveryAddressNotFound": false
-		}
-	} 
-}
-```
+| Paramètre           | Type                                          | Description                                                                            |
+| ------------------- | --------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `jobPickupName`     | String                                        | Nom du contact chez qui le ramassage doit être effectué                                |
+| `jobPickupPhone`    | [PhoneNumber](/#types-et-formats-des-donnees) | Numéro de téléphone du contact de la personne chez qui le ramassage doit être effectué |
+| `jobPickupAddress`  | [Geoplace](/#types-et-formats-des-donnees)    | Adresse du contact chez qui le ramassage doit être effectué                            |
+| `jobPickupDatetime` | [Datetime](/#types-et-formats-des-donnees)    | Heure/date à laquelle la course doit être prise en charge                              | ` |
+| `jobDescription`    | String                                        | Description de la commande pour une meilleure prise en charge                          |
+
+- Exemple de requête
+
+<p>
+  <iframe
+    src="//api.apiembed.com/?source=https://raw.githubusercontent.com/paps-app/request-api-exemple/master/PickupTask.json&targets=shell:curl,node:unirest,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,java:okhttp,node:native,javascript:jquery,php:http1,csharp:restsharp"
+    frameBorder="0"
+    scrolling="no"
+    width="100%"
+    height="300px"
+    seamless
+  />
+</p>
 
 ## Créer une tâche de livraison
 
+- Méthode: **`POST /api/v1/createDelivery`**
 
-Cette API est utilisée pour créer une tâche de livraison.L'url de base qu'on va utilisé est : `POST /api/v1/createDelivery`.
+Cette méthode est utilisée pour créer une tâche de livraison. Une tâche de livraison désigne une course où le colis doit être déposé. Elle est donc souvent précédée et liée à une tache de ramassage. Le tableau ci-dessous récapitule les paramètres à accompagner avec la requête de création de tâches de livraison:
 
-```json
+| Paramètre             | Type                                          | Description                                                                             |
+| --------------------- | --------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `customerUsername`    | String                                        | Nom du contact chez qui la livraison doit être effectuée                                |
+| `customerPhone`       | [PhoneNumber](/#types-et-formats-des-donnees) | Numéro de téléphone du contact de la personne chez qui la livraison doit être effectuée |
+| `jobPickupPhone`      | [PhoneNumber](/#types-et-formats-des-donnees) | Numéro de téléphone du contact de la personne chez qui le ramassage a été déjà effectué |
+| `customerAddress`     | [Geoplace](/#types-et-formats-des-donnees)    | Adresse du contact chez qui la livraison doit être effectuée                            |
+| `jobDeliveryDatetime` | [Datetime](/#types-et-formats-des-donnees)    | Heure/date à laquelle la course doit être prise en charge                               |
+| `jobDescription`      | String                                        | Description de la commande pour une meilleure prise en charge                           |
+
+- Exemple de requête
+
+<p>
+  <iframe
+    src="//api.apiembed.com/?source=https://raw.githubusercontent.com/paps-app/request-api-exemple/master/DeliveryTask.json&targets=shell:curl,node:unirest,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,java:okhttp,node:native,javascript:jquery,php:http1,csharp:restsharp"
+    frameBorder="0"
+    scrolling="no"
+    width="100%"
+    height="300px"
+    seamless
+  />
+</p>
+
+- Exemple de réponse
+
+```
 {
-	"customerAddress": "Ouest Foire, Dakar, Sénégal",
-	"jobDeliveryDatetime": "2018-10-24 00:00:00",
-	"timezone": "0"
-}
-``` 
-
-Ceci crée une tâche de livraison et nous retourne un message s'il n'y a pas d'erreurs.
-
-```json
-{
-	"payload": {
-		"message": "The task has been created.",
-		"status": 200,
-		"data": {
-			"job_id": 22726428,
-			"job_hash": "26a453fdc6dd79eda5a0fb994a16614f",
-			"customer_address": "Ouest Foire, Dakar, Sénégal",
-			"job_token": "2272642815403757852833068",
-			"tracking_link": "https://k7ggd.app.goo.gl/SGP49G",
-			"pickupAddressNotFound": false,
-			"deliveryAddressNotFound": false
-		}
-	}
+  "payload": {
+    "message": "The task has been created.",
+    "status": 200,
+    "data": {
+      "job_id": 22726428,
+      "job_hash": "26a453fdc6dd79eda5a0fb994a16614f",
+      "customer_address": "Ouest Foire, Dakar, Sénégal",
+      "job_token": "2272642815403757852833068",
+      "tracking_link": "https://k7ggd.app.goo.gl/SGP49G",
+      "pickupAddressNotFound": false,
+      "deliveryAddressNotFound": false
+    }
+  }
 }
 ```
 
-## Créer une tâche de ramassage et de livraison
+## Création de tâches multiples et liées
 
+- Méthode: **`POST /api/v1/createMultipleTasks`**
 
-L'url de base qu'on va utilisé est : `POST /api/v1/createTask`. C'est la methode utilisée
-pour envoyer les informations du pickup et delivery. Et les
-informations sont contenues dans un tableau d'objet et sont envoyées
-en forme JSON.
+Celle-ci est la methode utilisée pour démarrer plusieurs courses liées. Les courses liées peuvent contenir non seulement plusieurs points ramassage et livraison mais peuvent être programmées sur plusieurs jours. Les informations sur chaque course sont contenues dans un tableau d’objet et sont envoyées en forme JSON.
 
-```json
+| Paramètre             | Type                                          | Description                                                                             |
+| --------------------- | --------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `pickups`             | String                                        | Nom du contact chez qui la livraison doit être effectuée                                |
+| `customerPhone`       | [PhoneNumber](/#types-et-formats-des-donnees) | Numéro de téléphone du contact de la personne chez qui la livraison doit être effectuée |
+| `jobPickupPhone`      | [PhoneNumber](/#types-et-formats-des-donnees) | Numéro de téléphone du contact de la personne chez qui le ramassage a été déjà effectué |
+| `customerAddress`     | [Geoplace](/#types-et-formats-des-donnees)    | Adresse du contact chez qui la livraison doit être effectuée                            |
+| `jobDeliveryDatetime` | [Datetime](/#types-et-formats-des-donnees)    | Heure/date à laquelle la course doit être prise en charge                               |
+| `jobDescription`      | String                                        | Description de la commande pour une meilleure prise en charge                           |
+
+<!-- ```json
 {
 	"jobPickupName": "Moussa",
 	"customerName": "fanta",
@@ -98,59 +123,34 @@ en forme JSON.
 	"autoAssignment": "0",
 	"timezone": "0"
 }
-```
+``` -->
+
+<iframe
+  src="//api.apiembed.com/?source=https://raw.githubusercontent.com/paps-app/request-api-exemple/master/PickupDeliveryTask.json&targets=shell:curl,node:unirest,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,java:okhttp,node:native,javascript:jquery,php:http1,csharp:restsharp"
+  frameBorder="0"
+  scrolling="no"
+  width="100%"
+  height="300px"
+  seamless
+/>
 
 Si la tâche est créée avec succès on aura un message de ce type :
 
-```json 
+```json
 {
 	"message": "The task has been created.",
 	"status": 200,
 	"data": "job_id": 21955359,
-	"pickup_job_id": 21955359, 
+	"pickup_job_id": 21955359,
 	"delivery_job_id": 21955360,
 	"job_hash": "c1c451ccf5b935751b1e18aeb8275049",
 	"customer_address": "Médina, Dakar, Sénégal",
-	"job_pickup_name": "Moussa", 
+	"job_pickup_name": "Moussa",
 	"job_pickup_address": "Fadia,Dakar, Sénégal",
 	"job_token": "2195535915390829560960041",
 	"pickup_tracking_link": "https://k7ggd.app.goo.gl/abDNj",
 	"delivery_tracing_link": "https://k7ggd.app.goo.gl/Ey1kL",
-	"pickupAddressNotFound": false, 
+	"pickupAddressNotFound": false,
 	"deliveryAddressNotFound": false
-}
-```
-
-### Gestion des erreurs de la création d'une tâche
-
-Lorsque votre commande ne se passe comme prévu, l'API répondra avec un code d'erreur autre que 200 dans la réponse.
-
-```bash
-{
-  200 - OK: Tout est allé comme prévu.
-  304 - Non modifié:ressources n'a pas été mis à jour depuis la date prévue.
-  400 - Bad Request: Tu as faitquelque chose de mal. Souvent, un argument ou paramètre manquant.
-  401 - Non autorisé: L'authentification est incorrecte.
-  404 -Not Found 
-  429 - Trop de demandes 
-  500 - Erreur interne du serveur: Nous avons eu un traitement de la demande problème. 
-  503- Service Unavailable: Réessayez plus tard.
-}
-```
-
-##### Exemple d'erreur de syntaxe
-
-Ici par exemple, nous avons volontairement omis `timezone= 0` dans la requête `POST /api/v1/createTask` avec les paramètres ci-dessous, ce qui cause un code d'erreur de type `401`;
-
-```json
-{
-	"jobPickupName": "Moussa",
-	"customerName": "fanta",
-	"jobPickupAddress":"Fadia, Dakar, Sénégal",
-	"customerAddress": "Médina, Dakar, Sénégal",
-	"jobPickupDatetime": "2018-10-23 00:00:00",
-	"jobDeliveryDatetime": "2018-10-23 00:00:00",
-	"jobDescription": "TEST -- Commande venant du site web",
-	"autoAssignment": "0",
 }
 ```

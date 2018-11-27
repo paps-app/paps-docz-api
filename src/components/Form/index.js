@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
-import cryptoRandomString from "crypto-random-string";
-import randomInt from "random-int";
+// import cryptoRandomString from "crypto-random-string";
+// import randomInt from "random-int";
 
-import saveApiKey from "../../config/firebase";
+// import saveApiKey from "../../config/firebase";
 
 import ModalContext from "../Modal/Context";
 import Button from "../Button";
@@ -90,35 +90,35 @@ export default class Modal extends React.Component {
   };
 
   saveToFirebase = () => {
-    const createAt = new Date().toISOString();
-    const apiKey = cryptoRandomString(52);
-    const codeClient = randomInt(10000, 99999);
+    // const createAt = new Date().toISOString();
+    // const apiKey = cryptoRandomString(52);
+    // const codeClient = randomInt(10000, 99999);
 
-    this.setState(({ fields }) => ({
-      fields: {
-        ...fields,
-        apiKey,
-        codeClient
-      }
-    }));
+    // this.setState(({ fields }) => ({
+    //   fields: {
+    //     ...fields,
+    //     apiKey,
+    //     codeClient
+    //   }
+    // }));
 
-    setTimeout(() => {
-      const {
-        fields: { email, name }
-      } = this.state;
+    // setTimeout(() => {
+    //   const {
+    //     fields: { email, name }
+    //   } = this.state;
 
-      saveApiKey.push({
-        name,
-        email,
-        apiKey,
-        codeClient,
-        createAt,
-        lastUsedAt: 0,
-        usageCount: 0
-      });
+    //   saveApiKey.push({
+    //     name,
+    //     email,
+    //     apiKey,
+    //     codeClient,
+    //     createAt,
+    //     lastUsedAt: 0,
+    //     usageCount: 0
+    //   });
       this.setState({ isSubmitting: true, hasFormSuccess: true });
-      this.sendEmail();
-    }, 500);
+    //   this.sendEmail();
+    // }, 500);
   };
 
   sendEmail = () => {
