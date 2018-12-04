@@ -1,12 +1,18 @@
 ---
-name: Voir une tâche
+name: Manipulation des tâches
 order: 3
-title: Voir une tâche
+title: Manipulation des tâches
 ---
 
-## Obtenir les infos sur une tache donnée
+# Manipulation des tâches
 
-Après avoir créé une tâche via l'API, vous pouvez vérifier qu'elle a bien été créée en utilisant la méthode `GET /api/v1/viewTask?id=<task-id>`.
+Après avoir créé une tâche via l'API, vous devez dans le meilleur des cas vous assurez d'avoir bien enregistré quelque part (base de donées, cookies, localStorage du navigateur ou sur n'importe quel système) afin de pouvoir faire des manipulations là-dessus. Avec l'API, vous pouvez visualiser, modifier ou annuler une tâche (seulement si elle n'est pas en cours) et visualiser toutes les tâches que vous avez créées avec l'API sur une période.
+
+## Visualiser les infos sur une tâche
+
+Vous pouvez visualiser une tâche qui a été créée en utilisant la méthode suivante:
+
+- Méthode: **`GET /api/v1/viewTask?id=<task-id>`**
 
 | Paramètre | Type   | Description                                      |
 | --------- | ------ | ------------------------------------------------ |

@@ -1,18 +1,18 @@
 ---
 order: 4
 name: Créer une tâche
-title: Créer une tache avec Paps API
+title: Créer une tâche avec Paps API
 ---
 
-# Créer une tache avec Paps API
+# Créer une tâche avec Paps API
 
 Il existe différents types de tâches peuvent être créées à travers l'API en fonction de votre flux de travail. Vous pouvez effectuer 3 types de requêtes pour créer une tâche:
 
-- Création de tache de ramassage (`createPickup`)
-- Création de tache de livraison (`createDelivery`)
+- Création de tâche de ramassage (`createPickup`)
+- Création de tâche de livraison (`createDelivery`)
 - Création de tâches multiples (`createMultipleTasks`)
 
-> Toute création de tache doit être faite avec un argument de type query `apiKey` que vous pouvez
+> Toute création de tâche doit être faite avec un argument de type query `apiKey` que vous pouvez
 > obtenir [ici](/#commencez-à-utiliser-paps-api) sur la page d'acceil. Exemple:
 
 `POST https://api.paps.sn/api/v1/<method>?apiKey=59a242vv8830z22zee983930129892b&getId=2231233`
@@ -52,7 +52,7 @@ Cette méthode est utilisée pour créer une tâche de ramassage. Une tâche de 
 
 - Méthode: **`POST /api/v1/createDelivery`**
 
-Cette méthode est utilisée pour créer une tâche de livraison. Une tâche de livraison désigne une course où le colis doit être déposé. Elle est donc souvent précédée et liée à une tache de ramassage. Le tableau ci-dessous récapitule les paramètres à accompagner avec la requête de création de tâches de livraison:
+Cette méthode est utilisée pour créer une tâche de livraison. Une tâche de livraison désigne une course où le colis doit être déposé. Elle est donc souvent précédée et liée à une tâche de ramassage. Le tableau ci-dessous récapitule les paramètres à accompagner avec la requête de création de tâches de livraison:
 
 | Paramètre             | Type                                          | Description                                                                             |
 | --------------------- | --------------------------------------------- | --------------------------------------------------------------------------------------- |

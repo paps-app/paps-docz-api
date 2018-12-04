@@ -1,4 +1,5 @@
 import React, { Fragment } from "react";
+
 // import cryptoRandomString from "crypto-random-string";
 // import randomInt from "random-int";
 
@@ -11,6 +12,8 @@ import Input from "./Input";
 import { ModalCloseButton, ModalHeader, ModalTitle } from "../Modal/styles";
 
 import CloseIcon from "../../assets/svg/cross.svg";
+
+const generate = require("nanoid/generate");
 
 const errorMsgs = {
   email: "L'adresse email n'est pas valide"
@@ -59,6 +62,10 @@ export default class Modal extends React.Component {
     this.handleInputChange(e, "fields", "name");
   };
 
+  handleCompanyChange = e => {
+    this.handleInputChange(e, "fields", "companyChange");
+  };
+
   handleEmailBlur = e => {
     this.handleEmailValidation(e);
   };
@@ -77,7 +84,7 @@ export default class Modal extends React.Component {
   onSubmit = e => {
     e.preventDefault();
     if (!this.state.errors.email && areAllKeysValid(this.state.fields)) {
-      this.saveToFirebase();
+      this.genereteAndSave();
     } else {
       this.setState(({ errors }) => ({
         errors: {
@@ -89,18 +96,19 @@ export default class Modal extends React.Component {
     }
   };
 
-  saveToFirebase = () => {
-    // const createAt = new Date().toISOString();
+  genereteAndSave = () => {
     // const apiKey = cryptoRandomString(52);
     // const codeClient = randomInt(10000, 99999);
+    const apiKey = generate("1234567890abcdefghijklmnopqrstuvwxyz", 52);
+    const codeClient = generate("1234567890abcdefghijklmnopqrstuvwxyz", 10);
 
-    // this.setState(({ fields }) => ({
-    //   fields: {
-    //     ...fields,
-    //     apiKey,
-    //     codeClient
-    //   }
-    // }));
+    this.setState(({ fields }) => ({
+      fields: {
+        ...fields,
+        apiKey,
+        codeClient
+      }
+    }));
 
     // setTimeout(() => {
     //   const {
@@ -116,9 +124,48 @@ export default class Modal extends React.Component {
     //     lastUsedAt: 0,
     //     usageCount: 0
     //   });
-      this.setState({ isSubmitting: true, hasFormSuccess: true });
+    this.setState({ isSubmitting: true, hasFormSuccess: true });
     //   this.sendEmail();
     // }, 500);
+    setTimeout(() => {
+      this.sendUsEmail();
+    }, 200);
+    setTimeout(() => {
+      this.sendEmail();
+    }, 400);
+  };
+
+  sendUsEmail = () => {
+    const { apiKey, codeClient } = this.state.fields;
+
+    const EmailBody = `
+      Hello, nouvel inscrit pour l'API,
+      <br/>
+      <ul style="padding-left:0">
+        <li>
+          La clé API est unique et nous permet de vous connecter de manière sécurisée à l'API. Elle est obligatoire:
+          <strong>${apiKey}</strong>
+          <br />
+        </li>
+        <li>
+          Le code client est aussi unique et permet d'identifier toutes les courses en provenance de votre compte:
+          <strong>${codeClient}</strong>
+        </li>
+        <br />
+        Rendez vous sur la <a href="https://developers.paps.sn/">documentation</a> pour plus d'informations.
+      </ul>
+    `;
+    Email.send(
+      "Paps <hello@paps.sn>",
+      "madiodio@paps-app.com",
+      "Clé de sécurité pour utiliser Paps API",
+      EmailBody,
+      { token: "8ae0ec5c-b351-4d63-9bca-c82bcbc0fd3c " },
+      message => {
+        // this.setState({ isSubmitting: false });
+        console.log(message);
+      }
+    );
   };
 
   sendEmail = () => {
@@ -188,6 +235,15 @@ export default class Modal extends React.Component {
                 label="Votre nom complet"
                 onChange={this.handleNameChange}
                 width="100%"
+                required
+              />
+              <Input
+                type="text"
+                id="companyName"
+                label="Nom de l'entreprise"
+                onChange={this.handleCompanyChange}
+                width="100%"
+                style={{ marginTop: "0.9rem " }}
                 required
               />
               <Input

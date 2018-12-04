@@ -36,9 +36,11 @@
   },
   "dependencies": {
     "crypto-random-string": "^1.0.0",
+    "docz-plugin-netlify": "^1.1.4",
     "elliptic": "^6.4.1",
     "emotion": "^9.2.12",
     "firebase": "^5.5.5",
+    "nanoid": "^2.0.0",
     "random-int": "^1.0.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",

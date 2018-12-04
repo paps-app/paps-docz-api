@@ -4,6 +4,10 @@ import { injectGlobal } from "emotion";
 import ModalProvider from "./components/Modal/Provider";
 
 injectGlobal`
+  body {
+    font-family: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif"
+  }
+
  .modal-open #modal-root {
     position: fixed;
     top: 0;
