@@ -28,7 +28,6 @@ Cette requête est utilisée pour obtenir les détails de la tâche. Losrque tou
 		"fleet_id": 12201,
 		"fleet_name": "Bassène",
 		"fleet_latitude": 14.71723,
-		"fleet_longitude": -17.16229,
 		....
 	}
 }
@@ -36,6 +35,72 @@ Cette requête est utilisée pour obtenir les détails de la tâche. Losrque tou
 
 <iframe
   src="//api.apiembed.com/?source=https://raw.githubusercontent.com/paps-app/request-api-exemple/master/GetTask.json&targets=shell:curl,node:unirest,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,java:okhttp,node:native,javascript:jquery,php:http1,csharp:restsharp"
+  frameborder="0"
+  scrolling="no"
+  width="100%"
+  height="300px"
+  seamless
+/>
+
+## Modifier les infos d'une tâche
+
+Vous pouvez modifier une tâche losrque seulement celle-ci n'a pas encore commencé en changeant les mêmes infos que vous aviez soumises au moment de les créer donc les mêmes paramètres de création de tâche:
+
+- Méthode: **`GET /api/v1/editTask`**
+
+| Paramètre             | Type                                          | Description                                               |
+| --------------------- | --------------------------------------------- | --------------------------------------------------------- |
+| `id`                  | `String`                                      | ID de la tâche à modifier                                 |
+| `jobPickupAddress`    | [Geoplace](/#types-et-formats-des-donnees)    | Nom du contact chez qui le ramassage doit être effectué   |
+| `jobPickupPhone`      | [PhoneNumber](/#types-et-formats-des-donnees) | Numéro de téléphone de l'expediteur                       |
+| `customerPhone`       | [PhoneNumber](/#types-et-formats-des-donnees) | Numéro de téléphone du destinataire                       |
+| `jobPickupDatetime`   | [Datetime](/#types-et-formats-des-donnees)    | Heure/date à laquelle la course doit être prise en charge |
+| `jobDeliveryDatetime` | [Datetime](/#types-et-formats-des-donnees)    | Heure/date à laquelle la course est terminée              |
+| `customerAddress`     | [Geoplace](/#types-et-formats-des-donnees)    | Adresse du destinataire                                   |
+| `customerUsername`    | String                                        | Nom du destinataire                                       |
+
+<iframe
+  src="//api.apiembed.com/?source=https://raw.githubusercontent.com/paps-app/request-api-exemple/master/editTask.json&targets=shell:curl,node:unirest,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,java:okhttp,node:native,javascript:jquery,php:http1,csharp:restsharp"
+  frameborder="0"
+  scrolling="no"
+  width="100%"
+  height="300px"
+  seamless
+/>
+
+## Modifier les dates de début et fin d'une tâche
+
+Vous pouvez modifier les dâtes et heures d'une tâche également losrque seulement celles-ci n'ont pas été encore entamées en soumettant leur ID dans un tableau et spécifiant `startTtime` et `endTime`.
+
+- Méthode: **`GET /api/v1/updateTaskDatetime`**
+
+| Paramètre   | Type                                       | Description                                                      |
+| ----------- | ------------------------------------------ | ---------------------------------------------------------------- |
+| `ids`       | Array[ids]                                 | Tous les ids dont on veut changer la date contenus dans un array |
+| `startTime` | [Datetime](/#types-et-formats-des-donnees) | Nouvelle date/heure du commencement de la tâche                  |
+| `endTime`   | [Datetime](/#types-et-formats-des-donnees) | Nouvelle date/heure de la fin de cette tâche                     |
+
+<iframe
+  src="//api.apiembed.com/?source=https://raw.githubusercontent.com/paps-app/request-api-exemple/master/updateTaskDatetime.json&targets=shell:curl,node:unirest,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,java:okhttp,node:native,javascript:jquery,php:http1,csharp:restsharp"
+  frameborder="0"
+  scrolling="no"
+  width="100%"
+  height="300px"
+  seamless
+/>
+
+## Annuler une tâche
+
+Vous pouvez annuler une tâche en soumettant juste le ID de la tâche
+
+- Méthode: **`GET /api/v1/cancelTask?id=<task-id>`**
+
+| Paramètre | Type   | Description                                |
+| --------- | ------ | ------------------------------------------ |
+| `id`      | Number | L'unique identifiant de la tâche concernée |
+
+<iframe
+  src="//api.apiembed.com/?source=https://raw.githubusercontent.com/paps-app/request-api-exemple/master/cancelTask.json&targets=shell:curl,node:unirest,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,java:okhttp,node:native,javascript:jquery,php:http1,csharp:restsharp"
   frameborder="0"
   scrolling="no"
   width="100%"
