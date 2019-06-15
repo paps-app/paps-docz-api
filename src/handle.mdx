@@ -46,7 +46,7 @@ Cette requête est utilisée pour obtenir les détails de la tâche. Losrque tou
 
 Vous pouvez modifier une tâche losrque seulement celle-ci n'a pas encore commencé en changeant les mêmes infos que vous aviez soumises au moment de les créer donc les mêmes paramètres de création de tâche:
 
-- Méthode: **`GET /api/v1/editTask`**
+- Méthode: **`POST /api/v1/editTask`**
 
 | Paramètre             | Type                                          | Description                                               |
 | --------------------- | --------------------------------------------- | --------------------------------------------------------- |
@@ -72,7 +72,7 @@ Vous pouvez modifier une tâche losrque seulement celle-ci n'a pas encore commen
 
 Vous pouvez modifier les dâtes et heures d'une tâche également losrque seulement celles-ci n'ont pas été encore entamées en soumettant leur ID dans un tableau et spécifiant `startTtime` et `endTime`.
 
-- Méthode: **`GET /api/v1/updateTaskDatetime`**
+- Méthode: **`POST /api/v1/updateTaskDatetime`**
 
 | Paramètre   | Type                                       | Description                                                      |
 | ----------- | ------------------------------------------ | ---------------------------------------------------------------- |
@@ -93,7 +93,7 @@ Vous pouvez modifier les dâtes et heures d'une tâche également losrque seulem
 
 Vous pouvez annuler une tâche en soumettant juste le ID de la tâche
 
-- Méthode: **`GET /api/v1/cancelTask?id=<task-id>`**
+- Méthode: **`POST /api/v1/cancelTask?id=<task-id>`**
 
 | Paramètre | Type   | Description                                |
 | --------- | ------ | ------------------------------------------ |
