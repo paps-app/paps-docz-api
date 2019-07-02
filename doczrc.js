@@ -1,4 +1,4 @@
-const doczPluginNetlify = require("docz-plugin-netlify")
+const doczPluginNetlify = require("docz-plugin-netlify");
 
 module.exports = {
   plugins: [doczPluginNetlify()],

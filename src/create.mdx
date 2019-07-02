@@ -28,13 +28,14 @@ Cette méthode est utilisée pour créer une tâche de ramassage. Une tâche de 
 > dans la requête, tous les paramètres mentionnés ci-dessous sont
 > obligatoires dans leur requête respective
 
-| Paramètre           | Type                                          | Description                                                                            |
-| ------------------- | --------------------------------------------- | -------------------------------------------------------------------------------------- |
-| `jobPickupName`     | String                                        | Nom du contact chez qui le ramassage doit être effectué                                |
-| `jobPickupPhone`    | [PhoneNumber](/#types-et-formats-des-donnees) | Numéro de téléphone du contact de la personne chez qui le ramassage doit être effectué |
-| `jobPickupAddress`  | [Geoplace](/#types-et-formats-des-donnees)    | Adresse du contact chez qui le ramassage doit être effectué                            |
-| `jobPickupDatetime` | [Datetime](/#types-et-formats-des-donnees)    | Heure/date à laquelle la course doit être prise en charge                              | ` |
-| `jobDescription`    | String                                        | Description de la commande pour une meilleure prise en charge                          |
+| Paramètre                    | Type                                                          | Description                                                                            |
+| ---------------------------- | ------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `jobPickupName`              | String                                                        | Nom du contact chez qui le ramassage doit être effectué                                |
+| `jobPickupPhone`             | [PhoneNumber](/#types-et-formats-des-donnees)                 | Numéro de téléphone du contact de la personne chez qui le ramassage doit être effectué |
+| `jobPickupAddress`           | [Geoplace](/#types-et-formats-des-donnees)                    | Adresse du contact chez qui le ramassage doit être effectué                            |
+| `jobPickupDatetime`          | [Datetime](/#types-et-formats-des-donnees)                    | Heure/date à laquelle la course doit être prise en charge                              | ` |
+| `jobDescription`             | String                                                        | Description de la commande pour une meilleure prise en charge                          |
+| `jobVehicleType` (optionnel) | One of `"Scooter"` `|` `"Minivan"` `|` `"Van"` `|` `"Camion"` | Type de véhicule sélectionné pour effectuer le pickup                                  |
 
 - Exemple de requête
 
@@ -55,14 +56,16 @@ Cette méthode est utilisée pour créer une tâche de ramassage. Une tâche de 
 
 Cette méthode est utilisée pour créer une tâche de livraison. Une tâche de livraison désigne une course où le colis doit être déposé. Elle est donc souvent précédée et liée à une tâche de ramassage. Le tableau ci-dessous récapitule les paramètres à accompagner avec la requête de création de tâches de livraison:
 
-| Paramètre             | Type                                          | Description                                                                             |
-| --------------------- | --------------------------------------------- | --------------------------------------------------------------------------------------- |
-| `customerUsername`    | String                                        | Nom du contact chez qui la livraison doit être effectuée                                |
-| `customerPhone`       | [PhoneNumber](/#types-et-formats-des-donnees) | Numéro de téléphone du contact de la personne chez qui la livraison doit être effectuée |
-| `jobPickupPhone`      | [PhoneNumber](/#types-et-formats-des-donnees) | Numéro de téléphone du contact de la personne chez qui le ramassage a été déjà effectué |
-| `customerAddress`     | [Geoplace](/#types-et-formats-des-donnees)    | Adresse du contact chez qui la livraison doit être effectuée                            |
-| `jobDeliveryDatetime` | [Datetime](/#types-et-formats-des-donnees)    | Heure/date à laquelle la course doit être prise en charge                               |
-| `jobDescription`      | String                                        | Description de la commande pour une meilleure prise en charge                           |
+| Paramètre                        | Type                                          | Description                                                                                                                                                                                                             |
+| -------------------------------- | --------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `customerUsername`               | String                                        | Nom du contact chez qui la livraison doit être effectuée                                                                                                                                                                |
+| `customerPhone`                  | [PhoneNumber](/#types-et-formats-des-donnees) | Numéro de téléphone du contact de la personne chez qui la livraison doit être effectuée                                                                                                                                 |
+| `jobPickupPhone`                 | [PhoneNumber](/#types-et-formats-des-donnees) | Numéro de téléphone du contact de la personne chez qui le ramassage a été déjà effectué                                                                                                                                 |
+| `customerAddress`                | [Geoplace](/#types-et-formats-des-donnees)    | Adresse du contact chez qui la livraison doit être effectuée                                                                                                                                                            |
+| `jobDeliveryDatetime`            | [Datetime](/#types-et-formats-des-donnees)    | Heure/date à laquelle la course doit être prise en charge                                                                                                                                                               |
+| `jobDescription`                 | String                                        | Description de la commande pour une meilleure prise en charge                                                                                                                                                           |
+| `jobPackageType` (optionnel)     | One of `"S"` `|` `"M"` `|` `"L"` `|` `"XL"`   | Type de colis à livrer: **S** correspond à max 5kg et transportable en scooter, **M** à max 30 kg et transportable en Mini Van, **L** à max 60 kg et transportable en Van et **XL** à max 100kg et transportable en Van |
+| `jobAmountToReceive` (optionnel) | Number                                        | Montant (cash) à collecter auprès du destinataire du colis                                                                                                                                                              |
 
 - Exemple de requête
 
@@ -96,6 +99,42 @@ Cette méthode est utilisée pour créer une tâche de livraison. Une tâche de 
   }
 }
 ```
+
+## Créer une tâche de Pickup et Delivery liés
+
+- Méthode: **`POST /api/v1/createPickupAndDelivery`**
+
+Cette méthode est utilisée pour créer une tâche de ramassage. Une tâche de ramassage désigne une course où le colis doit être pris. Le tableau ci-dessous récapitule les paramètres obligatoires à accompagner avec la requête de création de tâches de ramassage:
+
+> **Important**: A moins qu’il ait été précisé optionnel
+> dans la requête, tous les paramètres mentionnés ci-dessous sont
+> obligatoires dans leur requête respective
+
+| Paramètre                        | Type                                                          | Description                                                                                                                                                                                                             |
+| -------------------------------- | ------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `jobPickupAddress`               | [Geoplace](/#types-et-formats-des-donnees)                    | Nom du contact chez qui le ramassage doit être effectué                                                                                                                                                                 |
+| `jobPickupPhone`                 | [PhoneNumber](/#types-et-formats-des-donnees)                 | Numéro de téléphone de l'expediteur                                                                                                                                                                                     |
+| `customerPhone`                  | [PhoneNumber](/#types-et-formats-des-donnees)                 | Numéro de téléphone du destinataire                                                                                                                                                                                     |
+| `jobPickupDatetime`              | [Datetime](/#types-et-formats-des-donnees)                    | Heure/date à laquelle la course doit être prise en charge                                                                                                                                                               |
+| `jobDeliveryDatetime`            | [Datetime](/#types-et-formats-des-donnees)                    | Heure/date à laquelle la course est terminée                                                                                                                                                                            |
+| `customerAddress`                | [Geoplace](/#types-et-formats-des-donnees)                    | Adresse du destinataire                                                                                                                                                                                                 |
+| `customerUsername`               | String                                                        | Nom du destinataire                                                                                                                                                                                                     |
+| `jobVehicleType` (optionnel)     | One of `"Scooter"` `|` `"Minivan"` `|` `"Van"` `|` `"Camion"` | Type de véhicule sélectionné pour effectuer le pickup                                                                                                                                                                   |
+| `jobPackageType` (optionnel)     | One of `"S"` `|` `"M"` `|` `"L"` `|` `"XL"`                   | Type de colis à livrer: **S** correspond à max 5kg et transportable en scooter, **M** à max 30 kg et transportable en Mini Van, **L** à max 60 kg et transportable en Van et **XL** à max 100kg et transportable en Van |
+| `jobAmountToReceive` (optionnel) | Number                                                        | Montant (cash) à collecter auprès du destinataire du colis                                                                                                                                                              |
+
+- Exemple de requête
+
+<p>
+  <iframe
+    src="//api.apiembed.com/?source=https://raw.githubusercontent.com/paps-app/request-api-exemple/master/PickupDeliveryTask.json&targets=shell:curl,node:unirest,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,java:okhttp,node:native,javascript:jquery,php:http1,csharp:restsharp"
+    frameBorder="0"
+    scrolling="no"
+    width="100%"
+    height="300px"
+    seamless
+  />
+</p>
 
 ## Création de tâches multiples et liées
 
@@ -151,36 +190,3 @@ Ceci est l'objet retrançant toutes les informations que doit contenir un `objet
   height="300px"
   seamless
 />
-
-## Créer une tâche de Pickup et Delivery liés
-
-- Méthode: **`POST /api/v1/createPickupAndDelivery`**
-
-Cette méthode est utilisée pour créer une tâche de ramassage. Une tâche de ramassage désigne une course où le colis doit être pris. Le tableau ci-dessous récapitule les paramètres obligatoires à accompagner avec la requête de création de tâches de ramassage:
-
-> **Important**: A moins qu’il ait été précisé optionnel
-> dans la requête, tous les paramètres mentionnés ci-dessous sont
-> obligatoires dans leur requête respective
-
-| Paramètre             | Type                                          | Description                                               |
-| --------------------- | --------------------------------------------- | --------------------------------------------------------- |
-| `jobPickupAddress`    | [Geoplace](/#types-et-formats-des-donnees)    | Nom du contact chez qui le ramassage doit être effectué   |
-| `jobPickupPhone`      | [PhoneNumber](/#types-et-formats-des-donnees) | Numéro de téléphone de l'expediteur                       |
-| `customerPhone`       | [PhoneNumber](/#types-et-formats-des-donnees) | Numéro de téléphone du destinataire                       |
-| `jobPickupDatetime`   | [Datetime](/#types-et-formats-des-donnees)    | Heure/date à laquelle la course doit être prise en charge |
-| `jobDeliveryDatetime` | [Datetime](/#types-et-formats-des-donnees)    | Heure/date à laquelle la course est terminée              |
-| `customerAddress`     | [Geoplace](/#types-et-formats-des-donnees)    | Adresse du destinataire                                   |
-| `customerUsername`    | String                                        | Nom du destinataire                                       |
-
-- Exemple de requête
-
-<p>
-  <iframe
-    src="//api.apiembed.com/?source=https://raw.githubusercontent.com/paps-app/request-api-exemple/master/PickupDeliveryTask.json&targets=shell:curl,node:unirest,java:unirest,python:requests,ruby:native,objc:nsurlsession,go:native,java:okhttp,node:native,javascript:jquery,php:http1,csharp:restsharp"
-    frameBorder="0"
-    scrolling="no"
-    width="100%"
-    height="300px"
-    seamless
-  />
-</p>

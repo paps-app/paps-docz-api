@@ -10,20 +10,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/paps-app/paps-docz-api.git"
+    "url": "git+https://github.com/paps-app/paps-docz-api.git"
   },
   "author": "Madiodio Gaye <papigaye1@gmail.com> (http://github.com/madiodio)",
   "license": "ISC",
   "bugs": {
-    "url": "https://gitlab.com/paps-app/paps-docz-api/issues"
+    "url": "https://github.com/paps-app/paps-docz-api/issues"
   },
-  "homepage": "https://gitlab.com/paps-app/paps-docz-api#readme",
+  "homepage": "https://github.com/paps-app/paps-docz-api#readme",
   "devDependencies": {
     "@firebase/app-types": "^0.3.2",
     "@madiodio/eslint-config-personal-flow": "^1.2.0",
     "babel-eslint": "^10.0.1",
     "babel-plugin-emotion": "^9.2.11",
-    "docz": "^0.12.13",
     "eslint": "^5.6.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-config-prettier": "^3.1.0",
@@ -35,11 +34,10 @@
     "react-svg-loader": "^2.1.0"
   },
   "dependencies": {
-    "crypto-random-string": "^1.0.0",
+    "docz": "0.12.13",
     "docz-plugin-netlify": "^1.1.4",
     "elliptic": "^6.4.1",
     "emotion": "^9.2.12",
-    "firebase": "^5.5.5",
     "nanoid": "^2.0.0",
     "random-int": "^1.0.0",
     "react": "^16.6.3",

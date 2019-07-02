@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 
 // import cryptoRandomString from "crypto-random-string";
-// import randomInt from "random-int";
 
 // import saveApiKey from "../../config/firebase";
 
@@ -29,7 +28,10 @@ const areAllKeysValid = obj =>
 const InitialState = {
   fields: {
     email: "",
-    name: ""
+    name: "",
+    companyName: "",
+    apiKey: "",
+    codeClient: ""
   },
   errors: {
     email: false,
@@ -63,7 +65,7 @@ export default class Modal extends React.Component {
   };
 
   handleCompanyChange = e => {
-    this.handleInputChange(e, "fields", "companyChange");
+    this.handleInputChange(e, "fields", "companyName");
   };
 
   handleEmailBlur = e => {
@@ -94,6 +96,34 @@ export default class Modal extends React.Component {
         isSubmitting: false
       }));
     }
+  };
+
+  creatAPICustomer = () => {
+    const { fields } = this.state;
+
+    fetch(
+      "https://api.paps.sn/api/v1/createAPICustomer?apiKey=7090e4f41fd0dd4750b1bab1b0fa563e222d11b2276bf6cf5280",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          "x-request-admin": "true"
+        },
+        body: {
+          apiKey: fields.apiKey,
+          merchant_email: fields.email,
+          merchant_name: fields.ame,
+          merchant_company_name: fields.companyName,
+          order_id: fields.codeClient
+        }
+      }
+    )
+      .then(response => {
+        console.log(response);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   genereteAndSave = () => {
