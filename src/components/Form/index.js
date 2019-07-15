@@ -122,7 +122,10 @@ export default class Modal extends React.Component {
           this.setState({ isSubmitting: false, hasFormSuccess: true });
           setTimeout(() => {
             this.sendUsEmail();
-          }, 400);
+          }, 100);
+          setTimeout(() => {
+            this.sendEmail();
+          }, 200);
         }
       })
       .catch(err => {
@@ -146,9 +149,6 @@ export default class Modal extends React.Component {
     setTimeout(() => {
       this.creatAPICustomer();
     }, 200);
-    // setTimeout(() => {
-    //   this.sendEmail();
-    // }, 400);
   };
 
   sendUsEmail = () => {
@@ -191,21 +191,21 @@ export default class Modal extends React.Component {
     const EmailBody = `
       Hello ${name},
       <br/>
-      Votre requête pour utiliser l'API de Paps est bien accéptée, voici vos identifiants pour l'intégrer dans vos applications.
+      Merci d'avoir souscris pour utiliser l'API de Paps. Voici vos identifiants pour l'intégrer dans vos applications.
       <br/>
       <ul style="padding-left:0">
         <li>
-          La clé API est unique et nous permet de vous connecter de manière sécurisée à l'API. Elle est obligatoire:
-          <strong>${apiKey}</strong>
+          La clé API est unique et nous permet de vous connecter de manière sécurisée à l'API. Elle est obligatoire: 
+          <strong>${apiKey}</strong>. Rendez-vous sur <a href="https://developers.paps.sn/">documentation</a> pour savoir comment l'utiliser dans vos requêtes
           <br />
         </li>
         <li>
           Le code client est aussi unique et permet d'identifier toutes les courses en provenance de votre compte:
           <strong>${codeClient}</strong>
         </li>
-        <br />
-        Rendez vous sur la <a href="https://developers.paps.sn/">documentation</a> pour plus d'informations.
       </ul>
+      <br />
+      Un de nos product manager, <a href="mailto:madiodio@paps-app.com">Madiodio Gaye</a>, vous contactera très bientôt afin de vous assister dans l'intégration et en savoir plus sur vos besoins.
     `;
     Email.send(
       "Paps <hello@paps.sn>",
