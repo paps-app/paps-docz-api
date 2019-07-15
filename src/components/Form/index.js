@@ -118,7 +118,7 @@ export default class Modal extends React.Component {
       )
       .then(({ data }) => {
         console.log(data);
-        if (data.data.message === "Successfully created") {
+        if (data.message === "Successfully created") {
           this.setState({ isSubmitting: false, hasFormSuccess: true });
           setTimeout(() => {
             this.sendUsEmail();
