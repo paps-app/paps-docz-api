@@ -1,8 +1,8 @@
 ---
 route: /
 order: 5
-name: Accueil
-title: Documentation de Paps API
+name: Introduction
+title: Introduction Paps API
 ---
 
 import Text from "./components/Text";
@@ -13,7 +13,7 @@ import Button from "./components/Button";
 
 # 🙌🏼 Hello, world!
 
-## Introduction
+## Presentation
 
 > Bienvenue dans la documentation de Paps API. Cette documentation vous guidera
 > dans toutes les étapes pour utiliser l'API de Paps dans vos applications. Paps API
@@ -45,6 +45,14 @@ Le Endpoint (addresse url sur laquelle vous devez pointer votre requête) est le
 
 ```
 https://api.paps.sn/api/v1/<method>?apiKey=<apiKey>
+```
+
+## Mode Test
+
+Si vous n'êtes pas prêt à aller en production encore, vous pouvez passer dans vos requêtes le paramêtre `?test=true` qui indique vous souhaitez effectuer des tests. Exemple :
+
+```
+https://api.paps.sn/api/v1/<method>?apiKey=<apiKey>&?test=true
 ```
 
 ## Types et formats des données

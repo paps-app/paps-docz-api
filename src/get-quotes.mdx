@@ -1,0 +1,70 @@
+---
+name: Obtention des tarifs
+order: 2
+title: Obtenir un tarif
+---
+
+# Obtenir un tarif sur l'API
+
+## Aperçu
+
+Vous pouvez obtenir une tarification directement à travers l'API. En général, les tarifs vous sont déjà communiquées au travers du contrat que vous avez approuvé ou signé pour commencer à utiliser nos services. A noter également les tarifs calculés sur l'API sont seulement valables et applicables pour notre offre e-commerce. Si vous avez par exemple souscrit pour une offre de type transport de document, alors ces tarifs ne s'appliqueront pas à vous.
+
+Un tarif est calculé sur la base de 3 variables :
+
+- `origin` : le point de pickup de la commande représentée par une adresse
+- `destination` : le point de livraison de la commande représentée par une adresse
+- `packageSize` : la taille du colis à livrer représentée par une de ces valeurs: `small`, `medium`, `large` et `xLarge`. S'il y a plusieurs colis à livrer, calculez le poids total des colis et déterminez la taille correspondante. _(Voir en bas pour déterminer la taille d'un colis)_
+
+## Requête pour obtenir un tarif
+
+- Méthode: **`GET /api/v1/getQuotes?origin=<adresse-origin>&destination=<adresse-destination>&packageSize=<small | medium | large | xLarge>`**
+
+| Paramètre     | Type                                                  | Description                                                                                                                                          |
+| ------------- | ----------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `origin`      | String                                                | point de pickup de la commande représentée par une adresse                                                                                           |
+| `destination` | String                                                | point de livraison de la commande représentée par une adresse                                                                                        |
+| `packageSize` | `"small"` `|` `"medium"` `|` `"large"` `|` `"xLarge"` | la taille du colis à livrer. **small** correspond à maximum 5kg, **medium** à maximum 30 kg, **large** à maximum 60 kg et **xLarge** à maximum 100kg |
+
+## Réponse
+
+La réponse à la requête va inclure beaucoup d'informations qui vous seront peut-être utile mais la valeur que vous recherchez se trouve directement dans `quote`. Losrque tout se passe bien, vous aurez une réponse de ce type:
+
+```json
+{
+  "code": "200",
+  "message": "Successful",
+  "data": {
+    "origin": "Dakar, Senegal",
+    "destination": "Avenue Félix Éboué x, Route des Brasseries, Dakar, Senegal",
+    "legs": [
+      {
+        "distance": {
+          "text": "5.7 km",
+          "value": 5663
+        },
+        "duration": {
+          "text": "19 mins",
+          "value": 1120
+        },
+        "start_address": "Dakar, Senegal",
+        "end_address": "Avenue Félix Éboué x, Route des Brasseries, Dakar, Senegal",
+        "start_location": {
+          "lat": 14.7165766,
+          "lng": -17.467633
+        },
+        "end_location": {
+          "lat": 14.691815,
+          "lng": -17.4332306
+        }
+      }
+    ],
+    "total_distance": 5663,
+    "quote": 1000,
+    "normal_quote": 1000,
+    "package_size": "small",
+    "coupon_quote": 0,
+    "delivery_type": "standard"
+  }
+}
+```
