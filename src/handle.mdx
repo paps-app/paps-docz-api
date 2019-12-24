@@ -42,6 +42,44 @@ Cette requête est utilisée pour obtenir les détails de la tâche. Losrque tou
   seamless
 />
 
+## Visualiser les tâches créées avec votre clé API
+
+Vous pouvez lister toutes les tâches créées avec votre clé API en lançant la requête `viewAllTasksDetails`. Vous pouvez lister vos tâches:
+
+- Par jour en spécifiant juste le paramètre et la valeur `date=<Date>` dont `Date` ici est représenté au format [Date](/#types-et-formats-des-donnees).
+- Par intervalle en spécifiant le paramètre `selectBy=intervalle` et les valeurs `startDate=<Date>` et `endDate=<Date>` dont `Date` ici est représenté au format [Date](/#types-et-formats-des-donnees).
+- Par mois en spécifiant le paramètre et la valeur `selectBy=month` et et `date=<Date>` dont `Date` ici est représenté au format [Date](/#types-et-formats-des-donnees) sans la valeur `DD` exemple `date=2019-12`.
+
+* Méthode: **`GET /api/v1/viewAllTasksDetails?date=<date>&selectBy=intervalle&startDate=<Date>&endDate=<Date>`**
+
+| Paramètre   | Type                                                                                                               | Description                                                                                                    |
+| ----------- | ------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------- |
+| `date`      | [Date](/#types-et-formats-des-donnees) (optionnel quand c'est une recherche par intervalle `selectBy=intervalle` ) | La date représentant celle que vous renseignée au moment de créer une tâche                                    |
+| `startDate` | `String` (optionnel sauf si utilisé avec `selectBy=intervalle`)                                                    | Représentant le début de l'intervalle de la date de votre recherche                                            |
+| `endDate`   | `String` (optionnel sauf si utilisé avec `selectBy=intervalle`)                                                    | Représentant la fin de l'intervalle de la date de votre recherche                                              |
+| `selectBy`  | `"month" | "intervalle"`                                                                                           | Le type de recherche que vous souhaitez effectuer. Rechercher par mois en spécifiant ou par intervalle de date |
+
+### Exemples de requête:
+
+- Par jour : `GET https://api.paps.sn/api/v1/viewAllTasksDetails?apiKey=7090e4f41fd0dd4750b1bab1b0fa563e222d11b2276bf6cf5280&date=2019-05-21`
+- Par intervalle : `GET https://api.paps.sn/api/v1/viewAllTasksDetails?apiKey=7090e4f41fd0dd4750b1bab1b0fa563e222d11b2276bf6cf5280&startDate=2019-05-20&selectBy=intervalle&endDate=2019-05-21`
+- Par mois : `GET https://api.paps.sn/api/v1/viewAllTasksDetails?apiKey=7090e4f41fd0dd4750b1bab1b0fa563e222d11b2276bf6cf5280&date=2019-05&selectBy=month`
+
+### Exemples de réponse:
+
+```json
+[
+  {
+    "job_amount_to_receive": 4000
+    "job_package_type": "S (max 5kg et transportable en scooter)"
+    "job_rate": 0
+    "creation_datetime": "2019-05-21T12:54:31.000Z"
+    "completed_datetime": "2019-05-21 17:23:43"
+    ...
+  }
+]
+```
+
 ## Modifier les infos d'une tâche
 
 Vous pouvez modifier une tâche losrque seulement celle-ci n'a pas encore commencé en changeant les mêmes infos que vous aviez soumises au moment de les créer donc les mêmes paramètres de création de tâche:
