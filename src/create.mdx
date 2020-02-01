@@ -147,6 +147,29 @@ Celle-ci est la methode utilisée pour démarrer plusieurs courses liées. Les c
 | `pickups`    | Array of [Pickups Object](#pickups-object)       | Tableau d'objet de pickups. Chaque objet contient les informations d'un pickup (ramassage)    |
 | `deliveries` | Array of [Deliveries Object](#deliveries-object) | Tableau d'objet de delivery. Chaque objet contient les informations d'un delivery (livraison) |
 
+## Création de tâches avec suivi sur [Monespace](https://monespace.paps.sn/)
+
+- Méthode: **`POST /api/v1/createTasksWithClientApp`**
+
+Vous pouvez utiliser cette méthode si vous souhaitez avoir le suivi de vos commandes en même temps sur l'application web client [Monespace](https://monespace.paps.sn/). Vous devez donc pour cela spécifier en argument l'adresse email du compte qui a accès à l'application. Les autres arguments à fournir restent pareils que ceux de `createMultipleTasks` car ici non plus vous n'êtes pas restreins par le nombre de pickups et delivery à créer, vous pouvez en créer autant que vous le souhaitez 😉.
+
+| Paramètre    | Type                                             | Description                                                                                   |
+| ------------ | ------------------------------------------------ | --------------------------------------------------------------------------------------------- |
+| `email`      | `String`                                         | Email du compte qui a accès à l'application client Monesapce                                  |
+| `pickups`    | Array of [Pickups Object](#pickups-object)       | Tableau d'objet de pickups. Chaque objet contient les informations d'un pickup (ramassage)    |
+| `deliveries` | Array of [Deliveries Object](#deliveries-object) | Tableau d'objet de delivery. Chaque objet contient les informations d'un delivery (livraison) |
+
+### Exemple
+
+<iframe
+  src="https://gist.github.com/madiodio/4170f73199d594eb1c351b084ca5b636.pibb"
+  frameborder="0"
+  css="overflow:hidden;overflow-x:hidden;overflow-y:hidden;width:100%;"
+  height="500px"
+  width="100%"
+  scrolling="auto"
+></iframe>
+
 ### Pickups Object
 
 Ceci est l'objet retrançant toutes les informations que doit contenir un `objet pickup`.
