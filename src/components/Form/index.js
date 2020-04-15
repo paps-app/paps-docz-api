@@ -71,7 +71,7 @@ export default class Modal extends React.Component {
 
   handleEmailValidation = e => {
     const emailValue = e.target.value;
-    const isEmailCorrect = !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(emailValue);
+    const isEmailCorrect = !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,8}$/i.test(emailValue);
     this.setState(({ errors }) => ({
       errors: {
         ...errors,
@@ -205,7 +205,7 @@ export default class Modal extends React.Component {
         </li>
       </ul>
       <br />
-      Un de nos product manager, <a href="mailto:madiodio@paps-app.com">Madiodio Gaye</a>, vous contactera très bientôt afin de vous assister dans l'intégration et en savoir plus sur vos besoins.
+     Nous vous contacterons très bientôt afin de vous assister dans l'intégration et en savoir plus sur vos besoins.
     `;
     Email.send(
       "Paps <hello@paps.sn>",
