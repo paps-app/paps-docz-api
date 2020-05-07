@@ -1,12 +1,80 @@
 ---
-name: Intégrations sur différentes plateformes
+name: Intégrations & SDKs
 order: 2
-title: Intégrations sur différentes plateformes
+title: Intégrations & SDKs
 ---
 
-# Intégrations
+# Intégrations & SDKs
 
-## Woocommerce
+L'API dispose de quelques SDKs ou clients vous permettant d'ajouter une couche d'abstraction et de faciliter l'intégration.
+
+## PHP - [Paps PHP Client](https://github.com/paps-app/paps-php-client)
+
+> - Auteur: [**Paps**](https://paps.sn).
+> - Version stable: **0.1.1**
+
+Le client PHP est directement disponibile à travers le gestionnaire de packets [Composer](https://getcomposer.org/). Veuillez suivre les instructions pour installer Composer pour utiliser ce packet:
+
+- Installation
+
+```
+$ composer require paps-app/paps-php-client
+```
+
+- Usage
+
+Vous pouvez importer les classes dont vous avez besoin comme ceci:
+
+```
+
+// 1
+use Paps\PapsClient;
+use Paps\PapsException;
+use Paps\PapsWebhook;
+use Paps\Resources\DeliveryQuote;
+use Paps\Resources\Delivery;
+
+// 2
+$client = new PapsClient([
+  'api_key' => '<Your API Key>'
+]);
+
+// 3
+
+$delivery_quote = new Delivery($this->client)
+
+// 4
+$quotes = $delivery_quote->submitQuotesRequest('<Delivery quotes params>')
+
+```
+
+Ou directement:
+
+```
+// 1
+$client = new Paps\PapsClient([
+  'api_key' => '<Your API Key>'
+]);
+
+// 2
+$delivery_quote = new Delivery($this->client)
+
+// 3
+$quotes = $delivery_quote->submitQuotesRequest('<Delivery quotes params>')
+
+```
+
+Voir la documentation complète ici : [github.com/paps-app/paps-php-client](https://github.com/paps-app/paps-php-client).
+
+## Node.js - [Node Paps](https://github.com/bcdbuddy/node-paps)
+
+> - Auteur: [**Babacar Cissé Dia**](https://babacar-cisse-dia.com/).
+
+Voir la documentation complète ici: [github.com/bcdbuddy/node-paps](https://github.com/bcdbuddy/node-paps)
+
+## Intégrations sur d'autres plateformes
+
+### Woocommerce
 
 Suivez ce lien pour télécharger et utiliser l'API si vous avez utiliser Woocommerce => https://wordpress.org/plugins/paps-shipping-for-woocommerce. Vous pouvez aussi rechercher juste le mot-clé **"Paps"** dans la bibliothèque d'extensions sur WordPress pour l'installer directement.
 
