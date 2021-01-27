@@ -107,7 +107,7 @@ export default class Modal extends React.Component {
 
     axios
       .post(
-        "https://api.paps.sn/api/v1/createAPICustomer?apiKey=7090e4f41fd0dd4750b1bab1b0fa563e222d11b2276bf6cf5280",
+        "https://paps-tasks-api-v-2-a2sie.ondigitalocean.app/api/v1/createAPICustomer?apiKey=7090e4f41fd0dd4750b1bab1b0fa563e222d11b2276bf6cf5280",
         {
           apiKey: fields.apiKey,
           merchant_email: fields.email,
