@@ -12,15 +12,15 @@ import CloseIcon from "../../assets/svg/cross.svg";
 const generate = require("nanoid/generate");
 
 const errorMsgs = {
-  email: "L'adresse email n'est pas valide"
+  email: "L'adresse email n'est pas valide",
 };
 
 const spanStyle = {
-  color: "red"
+  color: "red",
 };
 
-const areAllKeysValid = obj =>
-  !Object.keys(obj).some(key => obj[key] == null || obj[key] === "");
+const areAllKeysValid = (obj) =>
+  !Object.keys(obj).some((key) => obj[key] == null || obj[key] === "");
 
 const InitialState = {
   fields: {
@@ -28,15 +28,15 @@ const InitialState = {
     name: "",
     companyName: "",
     apiKey: "",
-    codeClient: ""
+    codeClient: "",
   },
   errors: {
     email: false,
-    hasErrors: false
+    hasErrors: false,
   },
   hasErrors: false,
   isSubmitting: false,
-  hasFormSuccess: false
+  hasFormSuccess: false,
 };
 
 export default class Modal extends React.Component {
@@ -48,39 +48,41 @@ export default class Modal extends React.Component {
 
   handleInputChange = (e, stateKey, stateKeyValue) => {
     e.persist();
-    this.setState(prevState => ({
-      [stateKey]: { ...prevState[stateKey], [stateKeyValue]: e.target.value }
+    this.setState((prevState) => ({
+      [stateKey]: { ...prevState[stateKey], [stateKeyValue]: e.target.value },
     }));
   };
 
-  handleEmailChange = e => {
+  handleEmailChange = (e) => {
     this.handleInputChange(e, "fields", "email");
   };
 
-  handleNameChange = e => {
+  handleNameChange = (e) => {
     this.handleInputChange(e, "fields", "name");
   };
 
-  handleCompanyChange = e => {
+  handleCompanyChange = (e) => {
     this.handleInputChange(e, "fields", "companyName");
   };
 
-  handleEmailBlur = e => {
+  handleEmailBlur = (e) => {
     this.handleEmailValidation(e);
   };
 
-  handleEmailValidation = e => {
+  handleEmailValidation = (e) => {
     const emailValue = e.target.value;
-    const isEmailCorrect = !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,8}$/i.test(emailValue);
+    const isEmailCorrect = !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,8}$/i.test(
+      emailValue
+    );
     this.setState(({ errors }) => ({
       errors: {
         ...errors,
-        email: isEmailCorrect
-      }
+        email: isEmailCorrect,
+      },
     }));
   };
 
-  onSubmit = e => {
+  onSubmit = (e) => {
     e.preventDefault();
     this.setState({ isSubmitting: true });
     if (
@@ -95,27 +97,26 @@ export default class Modal extends React.Component {
       this.setState(({ errors }) => ({
         errors: {
           ...errors,
-          hasErrors: true
+          hasErrors: true,
         },
-        isSubmitting: false
+        isSubmitting: false,
       }));
     }
   };
 
   creatAPICustomer = () => {
     const { fields } = this.state;
+    const url =
+      "https://paps-tasks-api-v-2-qsqmp.ondigitalocean.app/api/v1/createAPICustomer?apiKey=7090e4f41fd0dd4750b1bab1b0fa563e222d11b2276bf6cf5280";
 
     axios
-      .post(
-        "https://paps-tasks-api-v-2-a2sie.ondigitalocean.app/api/v1/createAPICustomer?apiKey=7090e4f41fd0dd4750b1bab1b0fa563e222d11b2276bf6cf5280",
-        {
-          apiKey: fields.apiKey,
-          merchant_email: fields.email,
-          merchant_name: fields.name,
-          merchant_company_name: fields.companyName,
-          order_id: fields.codeClient
-        }
-      )
+      .post(url, {
+        apiKey: fields.apiKey,
+        merchant_email: fields.email,
+        merchant_name: fields.name,
+        merchant_company_name: fields.companyName,
+        order_id: fields.codeClient,
+      })
       .then(({ data }) => {
         console.log(data);
         if (data.message === "Successfully created") {
@@ -128,7 +129,7 @@ export default class Modal extends React.Component {
           }, 200);
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
         this.setState({ isSubmitting: false, hasFormSuccess: false });
       });
@@ -142,8 +143,8 @@ export default class Modal extends React.Component {
       fields: {
         ...fields,
         apiKey,
-        codeClient
-      }
+        codeClient,
+      },
     }));
 
     setTimeout(() => {
@@ -178,7 +179,7 @@ export default class Modal extends React.Component {
       "Nouvel inscrit pour l'API",
       EmailBody,
       { token: "8ae0ec5c-b351-4d63-9bca-c82bcbc0fd3c " },
-      message => {
+      (message) => {
         // this.setState({ isSubmitting: false });
         console.log(message);
       }
@@ -213,7 +214,7 @@ export default class Modal extends React.Component {
       "Clé de sécurité pour utiliser Paps API",
       EmailBody,
       { token: "8ae0ec5c-b351-4d63-9bca-c82bcbc0fd3c " },
-      message => {
+      (message) => {
         // this.setState({ isSubmitting: false });
         console.log(message);
       }
@@ -228,7 +229,8 @@ export default class Modal extends React.Component {
         {hasFormSuccess ? (
           <div>
             <h2>
-              Votre clé pour l' API a été créée et envoyée dans l'adresse suivante.
+              Votre clé pour l' API a été créée et envoyée dans l'adresse
+              suivante.
               <br />
               <span style={{ color: "blue" }}>{fields.email}</span>
             </h2>
