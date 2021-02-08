@@ -175,7 +175,7 @@ export default class Modal extends React.Component {
     `;
     Email.send(
       "Paps <hello@paps.sn>",
-      "madiodio@paps-app.com",
+      "kiamet@paps-app.com",
       "Nouvel inscrit pour l'API",
       EmailBody,
       { token: "8ae0ec5c-b351-4d63-9bca-c82bcbc0fd3c " },
