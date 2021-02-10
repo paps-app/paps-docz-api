@@ -91,7 +91,7 @@ export default class Modal extends React.Component {
       this.state.fields.name &&
       this.state.fields.companyName
     ) {
-      // this.genereteAndSave();
+      this.genereteAndSave();
       this.sendUsEmail();
 
       console.log("ahj");
@@ -121,7 +121,6 @@ export default class Modal extends React.Component {
         }
       )
       .then(({ data }) => {
-        console.log(data);
         if (data.message === "Successfully created") {
           this.setState({ isSubmitting: false, hasFormSuccess: true });
           setTimeout(() => {
@@ -138,22 +137,22 @@ export default class Modal extends React.Component {
       });
   };
 
-  // genereteAndSave = () => {
-  //   const apiKey = generate("1234567890abcdefghijklmnopqrstuvwxyz", 52);
-  //   const codeClient = generate("1234567890abcdefghijklmnopqrstuvwxyz", 10);
+  genereteAndSave = () => {
+    const apiKey = generate("1234567890abcdefghijklmnopqrstuvwxyz", 52);
+    const codeClient = generate("1234567890abcdefghijklmnopqrstuvwxyz", 10);
 
-  //   this.setState(({ fields }) => ({
-  //     fields: {
-  //       ...fields,
-  //       apiKey,
-  //       codeClient,
-  //     },
-  //   }));
+    this.setState(({ fields }) => ({
+      fields: {
+        ...fields,
+        apiKey,
+        codeClient,
+      },
+    }));
 
-  //   setTimeout(() => {
-  //     this.creatAPICustomer();
-  //   }, 200);
-  // };
+    setTimeout(() => {
+      this.creatAPICustomer();
+    }, 200);
+  };
 
   sendUsEmail = () => {
     const { apiKey, codeClient, email } = this.state.fields;
