@@ -91,7 +91,7 @@ export default class Modal extends React.Component {
       this.state.fields.name &&
       this.state.fields.companyName
     ) {
-      this.genereteAndSave();
+      // this.genereteAndSave();
       this.sendUsEmail();
 
       console.log("ahj");
@@ -175,17 +175,18 @@ export default class Modal extends React.Component {
         <br />
       </ul>
     `;
-    Email.send(
-      "Paps <hello@paps.sn>",
-      ["antoine@paps-app.com", "kiamet@paps-app.com", "malick@paps-app.com"],
-      "Nouvel inscrit pour l'API",
-      EmailBody,
-      { SecureToken: "8ae0ec5c-b351-4d63-9bca-c82bcbc0fd3c" },
-      (message) => {
-        // this.setState({ isSubmitting: false });
-        console.log(message);
-      }
-    );
+
+    Email.send({
+      SecureToken: "8ae0ec5c-b351-4d63-9bca-c82bcbc0fd3c",
+      To: [
+        "antoine@paps-app.com",
+        "kiamet@paps-app.com",
+        "malick@paps-app.com",
+      ],
+      From: "Paps <hello@paps.sn>",
+      Subject: "Nouvel inscrit pour l'API",
+      Body: EmailBody,
+    }).then((message) => console.log(message));
   };
 
   sendEmail = () => {
@@ -210,16 +211,14 @@ export default class Modal extends React.Component {
       <br />
      Nous vous contacterons très bientôt afin de vous assister dans l'intégration et en savoir plus sur vos besoins.
     `;
-    Email.send(
-      "Paps <hello@paps.sn>",
-      email,
-      "Clé de sécurité pour utiliser Paps API",
-      EmailBody,
-      { SecureToken: "8ae0ec5c-b351-4d63-9bca-c82bcbc0fd3c" },
-      (message) => {
-        console.log(message);
-      }
-    );
+
+    Email.send({
+      SecureToken: "8ae0ec5c-b351-4d63-9bca-c82bcbc0fd3c",
+      To: email,
+      From: "Paps <hello@paps.sn>",
+      Subject: "Clé de sécurité pour utiliser Paps API",
+      Body: EmailBody,
+    }).then((message) => console.log(message));
   };
 
   render() {
