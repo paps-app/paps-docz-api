@@ -91,7 +91,9 @@ export default class Modal extends React.Component {
       this.state.fields.name &&
       this.state.fields.companyName
     ) {
-      this.genereteAndSave();
+      // this.genereteAndSave();
+      this.sendUsEmail();
+
       console.log("ahj");
     } else {
       this.setState(({ errors }) => ({
@@ -106,17 +108,18 @@ export default class Modal extends React.Component {
 
   creatAPICustomer = () => {
     const { fields } = this.state;
-    const url =
-      "https://paps-tasks-api-v-2-qsqmp.ondigitalocean.app/api/v1/createAPICustomer?apiKey=7090e4f41fd0dd4750b1bab1b0fa563e222d11b2276bf6cf5280";
 
     axios
-      .post(url, {
-        apiKey: fields.apiKey,
-        merchant_email: fields.email,
-        merchant_name: fields.name,
-        merchant_company_name: fields.companyName,
-        order_id: fields.codeClient,
-      })
+      .post(
+        "https://api.paps.sn/api/v1/createAPICustomer?apiKey=7090e4f41fd0dd4750b1bab1b0fa563e222d11b2276bf6cf5280",
+        {
+          apiKey: fields.apiKey,
+          merchant_email: fields.email,
+          merchant_name: fields.name,
+          merchant_company_name: fields.companyName,
+          order_id: fields.codeClient,
+        }
+      )
       .then(({ data }) => {
         console.log(data);
         if (data.message === "Successfully created") {
@@ -135,22 +138,22 @@ export default class Modal extends React.Component {
       });
   };
 
-  genereteAndSave = () => {
-    const apiKey = generate("1234567890abcdefghijklmnopqrstuvwxyz", 52);
-    const codeClient = generate("1234567890abcdefghijklmnopqrstuvwxyz", 10);
+  // genereteAndSave = () => {
+  //   const apiKey = generate("1234567890abcdefghijklmnopqrstuvwxyz", 52);
+  //   const codeClient = generate("1234567890abcdefghijklmnopqrstuvwxyz", 10);
 
-    this.setState(({ fields }) => ({
-      fields: {
-        ...fields,
-        apiKey,
-        codeClient,
-      },
-    }));
+  //   this.setState(({ fields }) => ({
+  //     fields: {
+  //       ...fields,
+  //       apiKey,
+  //       codeClient,
+  //     },
+  //   }));
 
-    setTimeout(() => {
-      this.creatAPICustomer();
-    }, 200);
-  };
+  //   setTimeout(() => {
+  //     this.creatAPICustomer();
+  //   }, 200);
+  // };
 
   sendUsEmail = () => {
     const { apiKey, codeClient, email } = this.state.fields;
@@ -175,10 +178,10 @@ export default class Modal extends React.Component {
     `;
     Email.send(
       "Paps <hello@paps.sn>",
-      "kiamet@paps-app.com",
+      ["antoine@paps-app.com", "kiamet@paps-app.com", "malick@paps-app.com"],
       "Nouvel inscrit pour l'API",
       EmailBody,
-      { token: "8ae0ec5c-b351-4d63-9bca-c82bcbc0fd3c " },
+      { SecureToken: "8ae0ec5c-b351-4d63-9bca-c82bcbc0fd3c" },
       (message) => {
         // this.setState({ isSubmitting: false });
         console.log(message);
@@ -213,9 +216,8 @@ export default class Modal extends React.Component {
       email,
       "Clé de sécurité pour utiliser Paps API",
       EmailBody,
-      { token: "8ae0ec5c-b351-4d63-9bca-c82bcbc0fd3c " },
+      { SecureToken: "8ae0ec5c-b351-4d63-9bca-c82bcbc0fd3c" },
       (message) => {
-        // this.setState({ isSubmitting: false });
         console.log(message);
       }
     );
