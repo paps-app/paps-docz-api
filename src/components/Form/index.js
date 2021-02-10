@@ -91,10 +91,7 @@ export default class Modal extends React.Component {
       this.state.fields.name &&
       this.state.fields.companyName
     ) {
-      // this.genereteAndSave();
-      this.sendUsEmail();
-
-      console.log("ahj");
+      this.genereteAndSave();
     } else {
       this.setState(({ errors }) => ({
         errors: {
