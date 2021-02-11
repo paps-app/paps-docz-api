@@ -19,9 +19,6 @@ const spanStyle = {
   color: "red",
 };
 
-const areAllKeysValid = (obj) =>
-  !Object.keys(obj).some((key) => obj[key] == null || obj[key] === "");
-
 const InitialState = {
   fields: {
     email: "",
@@ -122,10 +119,10 @@ export default class Modal extends React.Component {
           this.setState({ isSubmitting: false, hasFormSuccess: true });
           setTimeout(() => {
             this.sendUsEmail();
-          }, 100);
+          }, 250);
           setTimeout(() => {
             this.sendEmail();
-          }, 200);
+          }, 300);
         }
       })
       .catch((err) => {
@@ -174,20 +171,23 @@ export default class Modal extends React.Component {
     `;
 
     Email.send({
-      SecureToken: "8ae0ec5c-b351-4d63-9bca-c82bcbc0fd3c",
+      Host: "smtp.elasticemail.com",
+      Username: "hello@paps-app.com",
+      Password: "3C8C17DBFF3251944281E9F6563233B2C62A",
+      SecureToken: "54e9ed15-0cf9-43e7-b0f8-d2bb5775d94a",
+      From: "Paps <hello@paps-app.com>",
+      Subject: "Nouvel inscrit pour l'API",
       To: [
         "antoine@paps-app.com",
         "kiamet@paps-app.com",
         "malick@paps-app.com",
       ],
-      From: "Paps <hello@paps.sn>",
-      Subject: "Nouvel inscrit pour l'API",
       Body: EmailBody,
     }).then((message) => console.log(message));
   };
 
   sendEmail = () => {
-    const { name, email, apiKey, codeClient } = this.state.fields;
+    const { name, apiKey, codeClient } = this.state.fields;
 
     const EmailBody = `
       Hello ${name},
@@ -210,10 +210,17 @@ export default class Modal extends React.Component {
     `;
 
     Email.send({
-      SecureToken: "8ae0ec5c-b351-4d63-9bca-c82bcbc0fd3c",
-      To: email,
-      From: "Paps <hello@paps.sn>",
-      Subject: "Clé de sécurité pour utiliser Paps API",
+      Host: "smtp.elasticemail.com",
+      Username: "hello@paps-app.com",
+      Password: "3C8C17DBFF3251944281E9F6563233B2C62A",
+      SecureToken: "54e9ed15-0cf9-43e7-b0f8-d2bb5775d94a",
+      From: "Paps <malick@paps-app.com>",
+      Subject: "Nouvel inscrit pour l'API",
+      To: [
+        "antoine@paps-app.com",
+        "kiamet@paps-app.com",
+        "malick@paps-app.com",
+      ],
       Body: EmailBody,
     }).then((message) => console.log(message));
   };
