@@ -116,9 +116,7 @@ export default class Modal extends React.Component {
       },
     }));
 
-    setTimeout(() => {
-      this.creatAPICustomer();
-    }, 200);
+    this.creatAPICustomer();
   };
 
   creatAPICustomer = () => {
@@ -142,13 +140,10 @@ export default class Modal extends React.Component {
             hasFormSuccess: true,
           });
 
-          setTimeout(() => {
-            this.sendEmail(fields);
-          }, 300);
+          this.sendEmail(fields);
         }
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
         this.setState({
           isSubmitting: false,
           hasFormSuccess: false,
@@ -157,7 +152,6 @@ export default class Modal extends React.Component {
   };
 
   sendEmail = (params) => {
-    console.log(params);
     emailjs
       .send(
         "service_bo2xooi",
