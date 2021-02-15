@@ -1,5 +1,6 @@
 import React, { Fragment } from "react";
 import axios from "axios";
+import emailjs from "emailjs-com";
 
 import ModalContext from "../Modal/Context";
 import Button from "../Button";
@@ -18,9 +19,6 @@ const errorMsgs = {
 const spanStyle = {
   color: "red",
 };
-
-const areAllKeysValid = (obj) =>
-  !Object.keys(obj).some((key) => obj[key] == null || obj[key] === "");
 
 const InitialState = {
   fields: {
@@ -49,7 +47,10 @@ export default class Modal extends React.Component {
   handleInputChange = (e, stateKey, stateKeyValue) => {
     e.persist();
     this.setState((prevState) => ({
-      [stateKey]: { ...prevState[stateKey], [stateKeyValue]: e.target.value },
+      [stateKey]: {
+        ...prevState[stateKey],
+        [stateKeyValue]: e.target.value,
+      },
     }));
   };
 
@@ -103,6 +104,21 @@ export default class Modal extends React.Component {
     }
   };
 
+  genereteAndSave = () => {
+    const apiKey = generate("1234567890abcdefghijklmnopqrstuvwxyz", 52);
+    const codeClient = generate("1234567890abcdefghijklmnopqrstuvwxyz", 10);
+
+    this.setState(({ fields }) => ({
+      fields: {
+        ...fields,
+        apiKey,
+        codeClient,
+      },
+    }));
+
+    this.creatAPICustomer();
+  };
+
   creatAPICustomer = () => {
     const { fields } = this.state;
 
@@ -119,103 +135,38 @@ export default class Modal extends React.Component {
       )
       .then(({ data }) => {
         if (data.message === "Successfully created") {
-          this.setState({ isSubmitting: false, hasFormSuccess: true });
-          setTimeout(() => {
-            this.sendUsEmail();
-          }, 100);
-          setTimeout(() => {
-            this.sendEmail();
-          }, 200);
+          this.setState({
+            isSubmitting: false,
+            hasFormSuccess: true,
+          });
+
+          this.sendEmail(fields);
         }
       })
-      .catch((err) => {
-        console.log(err);
-        this.setState({ isSubmitting: false, hasFormSuccess: false });
+      .catch(() => {
+        this.setState({
+          isSubmitting: false,
+          hasFormSuccess: false,
+        });
       });
   };
 
-  genereteAndSave = () => {
-    const apiKey = generate("1234567890abcdefghijklmnopqrstuvwxyz", 52);
-    const codeClient = generate("1234567890abcdefghijklmnopqrstuvwxyz", 10);
-
-    this.setState(({ fields }) => ({
-      fields: {
-        ...fields,
-        apiKey,
-        codeClient,
-      },
-    }));
-
-    setTimeout(() => {
-      this.creatAPICustomer();
-    }, 200);
-  };
-
-  sendUsEmail = () => {
-    const { apiKey, codeClient, email } = this.state.fields;
-
-    const EmailBody = `
-      Hello, nouvel inscrit pour l'API,
-      <br/>
-      <ul style="padding-left:0">
-        <li>
-          Email: <strong>${email}</strong>
-          <br />
-        </li>
-        <li>
-          Clé API: <strong>${apiKey}</strong>
-          <br />
-        </li>
-        <li>
-          Code client: <strong>${codeClient}</strong>
-        </li>
-        <br />
-      </ul>
-    `;
-
-    Email.send({
-      SecureToken: "8ae0ec5c-b351-4d63-9bca-c82bcbc0fd3c",
-      To: [
-        "antoine@paps-app.com",
-        "kiamet@paps-app.com",
-        "malick@paps-app.com",
-      ],
-      From: "Paps <hello@paps.sn>",
-      Subject: "Nouvel inscrit pour l'API",
-      Body: EmailBody,
-    }).then((message) => console.log(message));
-  };
-
-  sendEmail = () => {
-    const { name, email, apiKey, codeClient } = this.state.fields;
-
-    const EmailBody = `
-      Hello ${name},
-      <br/>
-      Merci d'avoir souscris pour utiliser l'API de Paps. Voici vos identifiants pour l'intégrer dans vos applications.
-      <br/>
-      <ul style="padding-left:0">
-        <li>
-          La clé API est unique et nous permet de vous connecter de manière sécurisée à l'API. Elle est obligatoire: 
-          <strong>${apiKey}</strong>. Rendez-vous sur <a href="https://developers.paps.sn/">documentation</a> pour savoir comment l'utiliser dans vos requêtes
-          <br />
-        </li>
-        <li>
-          Le code client est aussi unique et permet d'identifier toutes les courses en provenance de votre compte:
-          <strong>${codeClient}</strong>
-        </li>
-      </ul>
-      <br />
-     Nous vous contacterons très bientôt afin de vous assister dans l'intégration et en savoir plus sur vos besoins.
-    `;
-
-    Email.send({
-      SecureToken: "8ae0ec5c-b351-4d63-9bca-c82bcbc0fd3c",
-      To: email,
-      From: "Paps <hello@paps.sn>",
-      Subject: "Clé de sécurité pour utiliser Paps API",
-      Body: EmailBody,
-    }).then((message) => console.log(message));
+  sendEmail = (params) => {
+    emailjs
+      .send(
+        "service_bo2xooi",
+        "template_cdacaar",
+        params,
+        "user_XX1vilGPnhSs2lrsLTkoH"
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
   };
 
   render() {
