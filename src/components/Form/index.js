@@ -92,7 +92,7 @@ export default class Modal extends React.Component {
       this.state.fields.name &&
       this.state.fields.companyName
     ) {
-      this.genereteAndSave(e);
+      this.genereteAndSave();
     } else {
       this.setState(({ errors }) => ({
         errors: {
@@ -104,7 +104,7 @@ export default class Modal extends React.Component {
     }
   };
 
-  genereteAndSave = (e) => {
+  genereteAndSave = () => {
     const apiKey = generate("1234567890abcdefghijklmnopqrstuvwxyz", 52);
     const codeClient = generate("1234567890abcdefghijklmnopqrstuvwxyz", 10);
 
@@ -117,11 +117,11 @@ export default class Modal extends React.Component {
     }));
 
     setTimeout(() => {
-      this.creatAPICustomer(e);
+      this.creatAPICustomer();
     }, 200);
   };
 
-  creatAPICustomer = (e) => {
+  creatAPICustomer = () => {
     const { fields } = this.state;
 
     axios
@@ -143,7 +143,7 @@ export default class Modal extends React.Component {
           });
 
           setTimeout(() => {
-            this.sendEmail(e);
+            this.sendEmail(fields);
           }, 300);
         }
       })
@@ -156,13 +156,13 @@ export default class Modal extends React.Component {
       });
   };
 
-  sendEmail = (e) => {
-    console.log(e.target);
+  sendEmail = (params) => {
+    console.log(params);
     emailjs
-      .sendForm(
+      .send(
         "service_bo2xooi",
         "template_cdacaar",
-        e.target,
+        params,
         "user_XX1vilGPnhSs2lrsLTkoH"
       )
       .then(
