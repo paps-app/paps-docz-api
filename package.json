@@ -38,6 +38,7 @@
     "docz": "0.12.13",
     "docz-plugin-netlify": "^1.1.4",
     "elliptic": "^6.4.1",
+    "emailjs-com": "^2.6.4",
     "emotion": "^9.2.12",
     "nanoid": "^2.0.0",
     "random-int": "^1.0.0",
